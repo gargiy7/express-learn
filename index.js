@@ -43,7 +43,7 @@ mongoose
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@devproject.fnbnu58.mongodb.net/${process.env.DB_NAME}`
   )
   .then(() => {
-    app.listen(port, () => {
+    app.listen(PORT, () => {
       console.log(`Example app listening on port  ${port}`);
     });
   })
