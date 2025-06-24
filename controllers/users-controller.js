@@ -60,7 +60,12 @@ const signUp = async (req, res, next) => {
       process.env.JWT_KEY,
       { expiresIn: "12h" }
     );
+
+    //setting cookies
     res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // only for HTTPS (which you're using)
+      sameSite: "None", // critical for frontend-backend on different domains
       expires: new Date(Date.now() + 8 * 3600000),
     });
     res.status(201).json({
@@ -108,7 +113,12 @@ const logIn = async (req, res, next) => {
       process.env.JWT_KEY,
       { expiresIn: "1d" }
     );
+
+    //setting cookies
     res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // only for HTTPS (which you're using)
+      sameSite: "None", // critical for frontend-backend on different domains
       expires: new Date(Date.now() + 8 * 3600000),
     });
 

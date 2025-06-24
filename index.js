@@ -24,8 +24,6 @@ app.use(
   })
 );
 
-
-
 // Routes
 app.use("/api/products", productsRoutes);
 app.use("/api/users", usersRoutes);
