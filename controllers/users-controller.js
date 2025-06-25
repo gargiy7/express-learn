@@ -136,6 +136,31 @@ const logIn = async (req, res, next) => {
   }
 };
 
+const updateUser = async (req, res, next) => {
+  const userId = req.params.userId;
+  const { name, email, password, image } = req.body;
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      name,
+      email,
+      password: hashedPassword,
+      image,
+    });
+    if (!updatedUser) {
+      const error = new Error("This User does not exist");
+      error.code = 419;
+      return next(error);
+    }
+    res.status(207).json({ updatedUser });
+  } catch (err) {
+    const error = new Error("Not able to update the user");
+    error.code = 449;
+    return next(error);
+  }
+};
+
 const logoutUser = async (req, res, next) => {
   res.cookie("token", null, {
     expires: new Date(Date.now()),
@@ -146,4 +171,5 @@ const logoutUser = async (req, res, next) => {
 exports.getUser = getUser;
 exports.signUp = signUp;
 exports.logIn = logIn;
+exports.updateUser = updateUser;
 exports.logoutUser = logoutUser;
