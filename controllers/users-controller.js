@@ -138,16 +138,20 @@ const logIn = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   const userId = req.params.userId;
-  const { name, email, password, image } = req.body;
+  const { name, email, image } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const updatedUser = await User.findByIdAndUpdate(userId, {
-      name,
-      email,
-      password: hashedPassword,
-      image,
-    });
+    // const hashedPassword = await bcrypt.hash(password, 10);
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        name,
+        email,
+        // password: hashedPassword,
+        image,
+      },
+      { new: true, runValidators: true }
+    );
     if (!updatedUser) {
       const error = new Error("This User does not exist");
       error.code = 419;

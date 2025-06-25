@@ -19,7 +19,8 @@ const usersRoutes = require("./routes/users-routes");
 // handling CORS error
 app.use(
   cors({
-    origin: "https://express-web-d8e4e.web.app",
+    // origin: "https://express-web-d8e4e.web.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
